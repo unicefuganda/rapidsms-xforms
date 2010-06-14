@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Signals &mdash; rapidsms-xforms v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="rapidsms-xforms v0.1 documentation" href="index.html" />
+    <link rel="next" title="Submissions" href="submissions.html" />
+    <link rel="prev" title="XForm Fields" href="fields.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="submissions.html" title="Submissions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fields.html" title="XForm Fields"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Signals</a><ul>
+<li><a class="reference external" href="#xform-received-signal">xform_received Signal</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="fields.html"
+                                  title="previous chapter">XForm Fields</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="submissions.html"
+                                  title="next chapter">Submissions</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/signals.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="signals">
+<h1>Signals<a class="headerlink" href="#signals" title="Permalink to this headline">¶</a></h1>
+<p>The XForms app uses signals to let you integrate with incoming submissions.  You can choose to listen for submissions as they come in.  You should make every effort to integrate your application in this way instead of changing the XForms app itself.  We consider it an error in our own design if you are modifying the XForms source, so please let us know if that is the case.</p>
+<div class="section" id="xform-received-signal">
+<h2>xform_received Signal<a class="headerlink" href="#xform-received-signal" title="Permalink to this headline">¶</a></h2>
+<p>Every time a new XForm submission comes in, a signal will be triggered for that submission.  The listener will receive a dict containing two values, <tt class="docutils literal"><span class="pre">submission</span></tt>, the actual XFormSubmission object, and <tt class="docutils literal"><span class="pre">xform</span></tt> the XForm type that was submitted.</p>
+<p>Note that all submissions will trigger a signal.  It is up to the caller to filter the incoming submissions based on whether they were successful or are the type of XForm the listener is interested in.</p>
+<p>You can listen to incoming submissions via:</p>
+<div class="highlight-python"><pre>from xforms.models import xform_received
+
+# define a listener
+def handle_submission(sender, **args):
+    submission = args['submission']
+    xform = args['xform']
+
+    if xform.keyword == 'survey' &amp;&amp; not submission.has_errors:
+       .. do your own logic here ..
+
+# then wire it to the xform_received signal
+xform_received.connect(handle_submission)</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="submissions.html" title="Submissions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fields.html" title="XForm Fields"
+             >previous</a> |</li>
+        <li><a href="index.html">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, Nyaruka Ltd.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.5.
+    </div>
+  </body>
+</html>

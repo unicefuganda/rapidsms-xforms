@@ -1,1 +1,193 @@
-Documentation coming soon...
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Introduction &mdash; rapidsms-xforms v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="rapidsms-xforms v0.1 documentation" href="#" />
+    <link rel="next" title="XForm Fields" href="fields.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fields.html" title="XForm Fields"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="#">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Introduction</a></li>
+<li><a class="reference external" href="#installation">Installation</a></li>
+<li><a class="reference external" href="#building-the-documentation">Building the Documentation</a></li>
+<li><a class="reference external" href="#running-the-tests">Running the Tests</a></li>
+<li><a class="reference external" href="#getting-started">Getting Started</a></li>
+<li><a class="reference external" href="#contents">Contents:</a><ul>
+</ul>
+</li>
+<li><a class="reference external" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+            <h4>Next topic</h4>
+            <p class="topless"><a href="fields.html"
+                                  title="next chapter">XForm Fields</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>The RapidSMS xforms application provides an interactive web based form builder.  Created forms support data being submitted to them via freehand formatted SMS, standard XForm HTTP posts or structured SMS.  Applications can choose to use xforms to quickly prototype systems, or even use them as their primary interface, using Django signals to perform more complicated logic on new submissions.</p>
+<p>Distinct features:</p>
+<ul class="simple">
+<li>Interactive Web UI to build new incoming Forms</li>
+<li>Ability to submit forms via hand entered SMS&#8217;s, HTTP Posts in XForm format or urlencoded XForm SMSes</li>
+<li>Display of submitted forms and editing of values by admin</li>
+<li>Signal architecture to allow you to plug in your own handler for submitted forms</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>To use, just put the <tt class="docutils literal"><span class="pre">xforms</span></tt> on your Python path, then edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include <tt class="docutils literal"><span class="pre">xforms</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;xforms&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>Then sync your database with <tt class="docutils literal"><span class="pre">./manage.py</span> <span class="pre">syncdb</span></tt>.</p>
+<p>Once you restart RapidSMS a new tab will created letting you create, manage and view forms and their submissions.</p>
+</div>
+<div class="section" id="building-the-documentation">
+<h1>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h1>
+<p>XForms is fully documented.  To build the html docs, go to the /docs subdirectory and execute:</p>
+<div class="highlight-python"><pre>% make html</pre>
+</div>
+<p>The final docs will be found in <tt class="docutils literal"><span class="pre">docs/_build/html/index.html</span></tt></p>
+</div>
+<div class="section" id="running-the-tests">
+<h1>Running the Tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h1>
+<p>We use the excellent <tt class="docutils literal"><span class="pre">django-test-extensions</span></tt> package to give us coverage reports for our unit tests.  This let&#8217;s us guarantee that we have 100% coverage for our tests. (not the same as saying there are no bugs, but a start)</p>
+<p>If you want to run our tests with coverage, you&#8217;ll need to install django-test-extensions:</p>
+<div class="highlight-python"><pre>% pip install django-test-extensions</pre>
+</div>
+<p>And edit your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> in <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include django-test-extensions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;django-test-extensions&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;xforms&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>You&#8217;ll then be able to run the unit tests and get a full coverage report:</p>
+<div class="highlight-python"><pre>% ./manage.py test xforms --coverage</pre>
+</div>
+<p>NOTE: There is currently an issue in django-test-extensions that makes all module level elements (imports and the like) show up as non-covered.  We are trying to get to the bottom of this with the author.</p>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Once installed, click on the XForms tab.  Here you can create a new form.  A form represents a new SMS (or XForm) endpoint, allowing users enter data into the system according to the fields you have defined.  Try creating a new form, naving it <tt class="docutils literal"><span class="pre">survey</span></tt> and add one integer field named <tt class="docutils literal"><span class="pre">age</span></tt> and a string field named <tt class="docutils literal"><span class="pre">name</span></tt>.</p>
+<p>Once saved you can submit SMS messages to the system in the forms:</p>
+<div class="highlight-python"><pre>survey +age 10 +name emily
+survey + age 30   +name greg linden
+survey +name eric +age 15.4</pre>
+</div>
+<p>You can view submitted reports after they come in, and edit them as you like.</p>
+<p>Now try experimenting with adding restrictions to the fields, whether they are required, their min and max values etc..  You&#8217;ll find you can easily customize the error messages as they come in.</p>
+<p>You can also submit surveys using an XForms client.  From the XForm detail page, just click on the <tt class="docutils literal"><span class="pre">download</span> <span class="pre">specification</span></tt> link to get an XForm compliant view of the XForm.  By default forms will be submitted using HTTP POSTs, but if you are using our modified ODK client you will also be able to submit via SMS.</p>
+</div>
+<div class="section" id="contents">
+<h1>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="fields.html">XForm Fields</a><ul>
+<li class="toctree-l2"><a class="reference external" href="fields.html#integer-field">Integer Field</a></li>
+<li class="toctree-l2"><a class="reference external" href="fields.html#decimal-field">Decimal Field</a></li>
+<li class="toctree-l2"><a class="reference external" href="fields.html#string-field">String Field</a></li>
+<li class="toctree-l2"><a class="reference external" href="fields.html#coordinate-field">Coordinate Field</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="signals.html">Signals</a><ul>
+<li class="toctree-l2"><a class="reference external" href="signals.html#xform-received-signal">xform_received Signal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="submissions.html">Submissions</a><ul>
+<li class="toctree-l2"><a class="reference external" href="submissions.html#manual-sms-submission">Manual SMS Submission</a></li>
+<li class="toctree-l2"><a class="reference external" href="submissions.html#xform-http-post">XForm HTTP Post</a></li>
+<li class="toctree-l2"><a class="reference external" href="submissions.html#automated-sms-submission">Automated SMS Submission</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference external" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference external" href="modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference external" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="fields.html" title="XForm Fields"
+             >next</a> |</li>
+        <li><a href="#">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, Nyaruka Ltd.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.5.
+    </div>
+  </body>
+</html>

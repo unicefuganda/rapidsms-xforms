@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Submissions &mdash; rapidsms-xforms v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '#',
+        VERSION:     '0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="rapidsms-xforms v0.1 documentation" href="index.html" />
+    <link rel="prev" title="Signals" href="signals.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="signals.html" title="Signals"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Submissions</a><ul>
+<li><a class="reference external" href="#manual-sms-submission">Manual SMS Submission</a></li>
+<li><a class="reference external" href="#xform-http-post">XForm HTTP Post</a></li>
+<li><a class="reference external" href="#automated-sms-submission">Automated SMS Submission</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="signals.html"
+                                  title="previous chapter">Signals</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/submissions.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="submissions">
+<h1>Submissions<a class="headerlink" href="#submissions" title="Permalink to this headline">¶</a></h1>
+<p>XForms supports three different modes of forms being submitted, via hand entered SMS, via XForm compliant HTTP POSTs, or via our own URL encoded SMS POSTS.  Each form has its own unique format, but each will pass through the same validation and signalling paths.</p>
+<div class="section" id="manual-sms-submission">
+<h2>Manual SMS Submission<a class="headerlink" href="#manual-sms-submission" title="Permalink to this headline">¶</a></h2>
+<p>The creation of an XForm creates a new SMS endpoint for that form.  The form&#8217;s <tt class="docutils literal"><span class="pre">keyword</span></tt> will determine the SMS keyword that will trigger handling of said form.  If the form is successfully parsed and all constraints pass, then if set, the <tt class="docutils literal"><span class="pre">response</span></tt> element for the form will be sent back to the sender of the SMS message.</p>
+<p>Note that we choose to be leniant about <strong>extra</strong> fields passed into SMS forms, these will be silently ignored.</p>
+<p>Some examples SMS forms and responses for an XForm with the keyword <tt class="docutils literal"><span class="pre">survey</span></tt> and the required field of <tt class="docutils literal"><span class="pre">age</span></tt> and optional field of <tt class="docutils literal"><span class="pre">name</span></tt>:</p>
+<div class="highlight-python"><pre>&gt;&gt; survey +age 10
+&lt;&lt; Thank you for submitting a new survey.
+
+&gt;&gt; survey
+&lt;&lt; You are missing the required +age field.
+
+&gt;&gt; survey +age ten
+&lt;&lt; The 'age' field must be an integer.
+
+&gt;&gt; survey +age 10 +name matt berg
+&lt;&lt; Thank you for submitting a new survey.
+
+&gt;&gt; survey +name matt berg +age 10
+&lt;&lt; Thank you for submitting a new survey.
+
+&gt;&gt; survey +name matt berg +age 10 +city new york
+&lt;&lt; Thank you for submitting a new survey.</pre>
+</div>
+</div>
+<div class="section" id="xform-http-post">
+<h2>XForm HTTP Post<a class="headerlink" href="#xform-http-post" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="automated-sms-submission">
+<h2>Automated SMS Submission<a class="headerlink" href="#automated-sms-submission" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="signals.html" title="Signals"
+             >previous</a> |</li>
+        <li><a href="index.html">rapidsms-xforms v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010, Nyaruka Ltd.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.5.
+    </div>
+  </body>
+</html>
