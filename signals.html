@@ -45,6 +45,7 @@
             <ul>
 <li><a class="reference external" href="#">Signals</a><ul>
 <li><a class="reference external" href="#xform-received-signal">xform_received Signal</a></li>
+<li><a class="reference external" href="#submission-editing">Submission Editing</a></li>
 </ul>
 </li>
 </ul>
@@ -102,6 +103,10 @@ def handle_submission(sender, **args):
 # then wire it to the xform_received signal
 xform_received.connect(handle_submission)</pre>
 </div>
+</div>
+<div class="section" id="submission-editing">
+<h2>Submission Editing<a class="headerlink" href="#submission-editing" title="Permalink to this headline">¶</a></h2>
+<p>Note that the <tt class="docutils literal"><span class="pre">xform_received</span></tt> signal will also be sent when an administrator edits and saves a submission.  As a listener you need to manage that an incomiung signal may be for a submission you have seen before.</p>
 </div>
 </div>
 
