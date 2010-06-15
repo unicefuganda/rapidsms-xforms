@@ -50,6 +50,7 @@
 <li><a class="reference external" href="#coordinate-field">Coordinate Field</a></li>
 </ul>
 </li>
+<li><a class="reference external" href="#field-constraints">Field Constraints</a></li>
 </ul>
 
             <h4>Previous topic</h4>
@@ -89,48 +90,64 @@
 <p>An XForm is composed of one or more ordered fields.  Currently four types are supported for each field, <tt class="docutils literal"><span class="pre">integer</span></tt>, <tt class="docutils literal"><span class="pre">decimal</span></tt>, <tt class="docutils literal"><span class="pre">string</span></tt> and <tt class="docutils literal"><span class="pre">coordinate</span></tt>.  Each field must have a unique human readable name, as well as a shorter <tt class="docutils literal"><span class="pre">slug</span></tt> used to uniquely identify it.  You may also specify help text that will be displayed in rich XForm clients.</p>
 <div class="section" id="integer-field">
 <h2>Integer Field<a class="headerlink" href="#integer-field" title="Permalink to this headline">¶</a></h2>
-<p>An integer field holds integers.  It supports the following restraints:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">required</span></tt></dt>
-<dd>a value is required for all form submission</dd>
-<dt><tt class="docutils literal"><span class="pre">min_value</span></tt></dt>
-<dd>The value must be be at least equal to the test value</dd>
-<dt><tt class="docutils literal"><span class="pre">max_value</span></tt></dt>
-<dd>The value must be less than or equal to the test value</dd>
-</dl>
+<p>An integer field which contains even numbers.</p>
+<p>Examples:</p>
+<div class="highlight-python"><pre>survey +age 20
+survey +height 35</pre>
+</div>
 </div>
 <div class="section" id="decimal-field">
 <h2>Decimal Field<a class="headerlink" href="#decimal-field" title="Permalink to this headline">¶</a></h2>
 <p>A decimal field holds a real, non integer number.  It has a maximum precision of 9 digits before and 9 digits after the period.</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">required</span></tt></dt>
-<dd>a value is required for all form submission</dd>
-<dt><tt class="docutils literal"><span class="pre">min_value</span></tt></dt>
-<dd>The value must be be at least equal to the test value</dd>
-<dt><tt class="docutils literal"><span class="pre">max_value</span></tt></dt>
-<dd>The value must be less than or equal to the test value</dd>
-</dl>
+<p>Examples:</p>
+<div class="highlight-python"><pre>survey +flow 5.4
+survey +temp 98.6</pre>
+</div>
 </div>
 <div class="section" id="string-field">
 <h2>String Field<a class="headerlink" href="#string-field" title="Permalink to this headline">¶</a></h2>
 <p>A string field, represents just a block of text.</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">required</span></tt></dt>
-<dd>a value is required for all form submission</dd>
-<dt><tt class="docutils literal"><span class="pre">min_len</span></tt></dt>
-<dd>The value must be be at least of length n</dd>
-<dt><tt class="docutils literal"><span class="pre">max_len</span></tt></dt>
-<dd>The value must be at most of length n</dd>
-<dt><tt class="docutils literal"><span class="pre">regex</span></tt></dt>
-<dd><p class="first">The value must match the passed in regex.  This can have multiple forms and should include anchor tokens if the regular expression is meant to be inclusive, some examples:</p>
-<div class="last highlight-python"><pre>^(mal|fev|shi)$</pre>
+<p>Examples:</p>
+<div class="highlight-python"><pre>survey +name matt berg
+survey +comment well is in need of repair</pre>
 </div>
-</dd>
-</dl>
 </div>
 <div class="section" id="coordinate-field">
 <h2>Coordinate Field<a class="headerlink" href="#coordinate-field" title="Permalink to this headline">¶</a></h2>
 <p>A coordinate field, which in practice is a pairing of decimal fields.</p>
+<p>Examples:</p>
+<div class="highlight-python"><pre>survey +loc 1.4564 1.5435
+survey +track 1.5456 1.2355</pre>
+</div>
+</div>
+</div>
+<div class="section" id="field-constraints">
+<h1>Field Constraints<a class="headerlink" href="#field-constraints" title="Permalink to this headline">¶</a></h1>
+<p>Every field can have one or more ordered constraints applied to it.  For each constraint you can specify a custom error message that is returned if the constraint fails.</p>
+<p>The types of constraints are:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">required</span></tt></dt>
+<dd>a non empty value is required for all form submission</dd>
+<dt><tt class="docutils literal"><span class="pre">min_value</span></tt></dt>
+<dd>The numeric value of the field must be n or greater.</dd>
+<dt><tt class="docutils literal"><span class="pre">max_value</span></tt></dt>
+<dd>The numeric value of the field must be n or less.</dd>
+<dt><tt class="docutils literal"><span class="pre">min_len</span></tt></dt>
+<dd>The value as a string must be be at least of length n</dd>
+<dt><tt class="docutils literal"><span class="pre">max_len</span></tt></dt>
+<dd>The value as a string must be at most of length n</dd>
+<dt><tt class="docutils literal"><span class="pre">regex</span></tt></dt>
+<dd>The value must match the passed in regex.  You likely want to include anchor tokens if the regular expression is meant to be inclusive.</dd>
+</dl>
+<p>Some example regular expressions:</p>
+<div class="highlight-python"><pre># only matches the strings 'mal', 'fev' or 'shi'
+^(mal|fev|shi)$
+
+# matches phone numbers in the form 333-3333
+^\d\d\d-\d\d\d\d$
+
+# forces the string to be only lowercase letters
+^[a-z]+$</pre>
 </div>
 </div>
 

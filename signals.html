@@ -88,7 +88,7 @@
 <h2>xform_received Signal<a class="headerlink" href="#xform-received-signal" title="Permalink to this headline">¶</a></h2>
 <p>Every time a new XForm submission comes in, a signal will be triggered for that submission.  The listener will receive a dict containing two values, <tt class="docutils literal"><span class="pre">submission</span></tt>, the actual XFormSubmission object, and <tt class="docutils literal"><span class="pre">xform</span></tt> the XForm type that was submitted.</p>
 <p>Note that all submissions will trigger a signal.  It is up to the caller to filter the incoming submissions based on whether they were successful or are the type of XForm the listener is interested in.</p>
-<p>You can listen to incoming submissions via:</p>
+<p>An example of a simple listener:</p>
 <div class="highlight-python"><pre>from xforms.models import xform_received
 
 # define a listener
