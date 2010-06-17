@@ -92,8 +92,12 @@
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>To use, just put the <tt class="docutils literal"><span class="pre">xforms</span></tt> on your Python path, then edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include <tt class="docutils literal"><span class="pre">xforms</span></tt>:</p>
+<p>We depend on the <tt class="docutils literal"><span class="pre">uni-form</span></tt> library to provide us with better looking (and more accessible) forms for free.  You&#8217;ll need to install this first:</p>
+<div class="highlight-python"><pre>% pip install django-uni-form</pre>
+</div>
+<p>Then to use xforms, just put <tt class="docutils literal"><span class="pre">xforms</span></tt> on your Python path, then edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include <tt class="docutils literal"><span class="pre">xforms</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
+                   <span class="s">&quot;uni_form&quot;</span><span class="p">,</span>
                    <span class="s">&quot;xforms&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
