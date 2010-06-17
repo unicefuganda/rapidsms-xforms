@@ -41,8 +41,10 @@
             <ul>
 <li><a class="reference external" href="#">Submissions</a><ul>
 <li><a class="reference external" href="#manual-sms-submission">Manual SMS Submission</a></li>
-<li><a class="reference external" href="#xform-http-post">XForm HTTP Post</a></li>
-<li><a class="reference external" href="#automated-sms-submission">Automated SMS Submission</a></li>
+<li><a class="reference external" href="#xform-http-post">XForm HTTP Post</a><ul>
+<li><a class="reference external" href="#endpoints">Endpoints</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -105,9 +107,22 @@
 </div>
 <div class="section" id="xform-http-post">
 <h2>XForm HTTP Post<a class="headerlink" href="#xform-http-post" title="Permalink to this headline">¶</a></h2>
+<p>Any forms created will also be made available as standard XForms.  In order to expose your forms through this interface you will need to set the <tt class="docutils literal"><span class="pre">XFORMS_HOST</span></tt> variable in your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to the host (and port if not 80) of your RapidSMS Server:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">XFORMS_HOST</span><span class="o">=</span><span class="s">&quot;rapidsms.unicef.org:8000&quot;</span>
+</pre></div>
 </div>
-<div class="section" id="automated-sms-submission">
-<h2>Automated SMS Submission<a class="headerlink" href="#automated-sms-submission" title="Permalink to this headline">¶</a></h2>
+<p>You can download a free ODK Client from the Android market named <tt class="docutils literal"><span class="pre">ODK</span> <span class="pre">Collect</span></tt>.  Once installed, just change the server to point to the same host specified above.  You will be able to list, install, and submit the forms you have created on your server using the native Android application.</p>
+<div class="section" id="endpoints">
+<h3>Endpoints<a class="headerlink" href="#endpoints" title="Permalink to this headline">¶</a></h3>
+<p>Two endpoints are implemented in order to work seamlessly with the ODK Collect client:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">/formList</span></tt></dt>
+<dd>Returns an XML document containing an index of all the form definitions installed on the server</dd>
+<dt><tt class="docutils literal"><span class="pre">/submission</span></tt></dt>
+<dd>The end point that XForm clients POST their submissions to</dd>
+</dl>
+<p>Note that these URLs are hard coded in the ODK Collect client, so they cannot be changed.</p>
+</div>
 </div>
 </div>
 

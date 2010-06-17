@@ -84,8 +84,9 @@
 <p>The RapidSMS xforms application provides an interactive web based form builder.  Created forms support data being submitted to them via freehand formatted SMS, standard XForm HTTP posts or structured SMS.  Applications can choose to use xforms to quickly prototype systems, or even use them as their primary interface, using Django signals to perform more complicated logic on new submissions.</p>
 <p>Distinct features:</p>
 <ul class="simple">
-<li>Interactive Web UI to build new incoming Forms</li>
-<li>Ability to submit forms via hand entered SMS&#8217;s, HTTP Posts in XForm format or urlencoded XForm SMSes</li>
+<li>Interactive Web UI to build Forms</li>
+<li>Flexible constraint architecture to allow for validation of inputs with customized error messaging</li>
+<li>Ability to submit forms either via hand entered SMS&#8217;s or via HTTP Posts in XForm format</li>
 <li>Display of submitted forms and editing of values by admin</li>
 <li>Signal architecture to allow you to plug in your own handler for submitted forms</li>
 </ul>
@@ -159,7 +160,6 @@ survey +name eric +age 15.4</pre>
 <li class="toctree-l1"><a class="reference external" href="submissions.html">Submissions</a><ul>
 <li class="toctree-l2"><a class="reference external" href="submissions.html#manual-sms-submission">Manual SMS Submission</a></li>
 <li class="toctree-l2"><a class="reference external" href="submissions.html#xform-http-post">XForm HTTP Post</a></li>
-<li class="toctree-l2"><a class="reference external" href="submissions.html#automated-sms-submission">Automated SMS Submission</a></li>
 </ul>
 </li>
 </ul>
