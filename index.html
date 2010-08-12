@@ -107,17 +107,18 @@
 <p>You can install the latest version of the rapidsms-xforms library straight from the cheese shop:</p>
 <div class="highlight-python"><pre>% pip install rapidsms-xforms</pre>
 </div>
-<p>Then to use xforms, edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
-                   <span class="s">&quot;uni_form&quot;</span><span class="p">,</span>
-                   <span class="s">&quot;rapidsms_xforms&quot;</span> <span class="p">)</span>
-
-<span class="n">TABS</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">(</span><span class="s">&#39;rapidsms.views.dashboard&#39;</span><span class="p">,</span> <span class="s">&#39;Dashboard&#39;</span><span class="p">),</span>
-  <span class="p">(</span><span class="s">&#39;rapidsms_xforms.views.xforms&#39;</span><span class="p">,</span> <span class="s">&#39;XForms&#39;</span><span class="p">),</span>
-  <span class="p">(</span><span class="s">&#39;rapidsms.contrib.httptester.views.generate_identity&#39;</span><span class="p">,</span> <span class="s">&#39;HttpTester&#39;</span><span class="p">),</span>
-<span class="p">]</span>
-</pre></div>
+<p>Then to use xforms, edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to add <tt class="docutils literal"><span class="pre">rapidsms_xforms</span></tt> and <tt class="docutils literal"><span class="pre">uni_form</span></tt>:</p>
+<div class="highlight-python"><pre>INSTALLED_APPS = ( "rapidsms",
+                     .. other apps ..
+                   "uni_form",
+                   "rapidsms_xforms" )</pre>
+</div>
+<p>You will probably also want to add XForms as one of the main RapidSMS tabs:</p>
+<div class="highlight-python"><pre>TABS = [
+  ('rapidsms.views.dashboard', 'Dashboard'),
+      .. other tabs ..
+  ('rapidsms_xforms.views.xforms', 'XForms'),
+]</pre>
 </div>
 <p>Finally sync your database with <tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">syncdb</span></tt>.</p>
 <p>Once you restart RapidSMS a new tab will created letting you create, manage and view forms and their submissions.</p>
