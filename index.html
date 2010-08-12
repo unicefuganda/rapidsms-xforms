@@ -42,6 +42,7 @@
 <li><a class="reference external" href="#">Introduction</a></li>
 <li><a class="reference external" href="#installation">Installation</a></li>
 <li><a class="reference external" href="#building-the-documentation">Building the Documentation</a></li>
+<li><a class="reference external" href="#updating-github-docs">Updating Github Docs</a></li>
 <li><a class="reference external" href="#running-the-tests">Running the Tests</a></li>
 <li><a class="reference external" href="#getting-started">Getting Started</a></li>
 <li><a class="reference external" href="#contents">Contents:</a><ul>
@@ -82,27 +83,39 @@
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>The RapidSMS xforms application provides an interactive web based form builder.  Created forms support data being submitted to them via freehand formatted SMS, standard XForm HTTP posts or structured SMS.  Applications can choose to use xforms to quickly prototype systems, or even use them as their primary interface, using Django signals to perform more complicated logic on new submissions.</p>
-<p>Distinct features:</p>
 <ul class="simple">
 <li>Interactive Web UI to build Forms</li>
 <li>Flexible constraint architecture to allow for validation of inputs with customized error messaging</li>
 <li>Ability to submit forms either via hand entered SMS&#8217;s or via HTTP Posts in XForm format</li>
 <li>Display of submitted forms and editing of values by admin</li>
 <li>Signal architecture to allow you to plug in your own handler for submitted forms</li>
+<li>Integration with ODK Collect, an Android XForms client</li>
 </ul>
+<dl class="docutils">
+<dt>The full documentation can be found at:</dt>
+<dd><a class="reference external" href="http://nyaruka.github.com/rapidsms-xforms">http://nyaruka.github.com/rapidsms-xforms</a></dd>
+<dt>The official source code repository is:</dt>
+<dd><a class="reference external" href="http://www.github.com/nyaruka/rapidsms-xforms">http://www.github.com/nyaruka/rapidsms-xforms</a></dd>
+</dl>
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>We depend on the <tt class="docutils literal"><span class="pre">uni-form</span></tt> library to provide us with better looking (and more accessible) forms for free.  You&#8217;ll need to install this first:</p>
-<div class="highlight-python"><pre>% pip install django-uni-form</pre>
-</div>
-<p>Then to use xforms, just put <tt class="docutils literal"><span class="pre">xforms</span></tt> on your Python path, then edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include <tt class="docutils literal"><span class="pre">xforms</span></tt>:</p>
+<p>You can install the latest version of the rapidsms-xforms library straight from the cheese shop:</p>
+<blockquote>
+% pip install rapidsms-xforms</blockquote>
+<p>Then to use xforms, edit your <tt class="docutils literal"><span class="pre">settings.py</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
                    <span class="s">&quot;uni_form&quot;</span><span class="p">,</span>
-                   <span class="s">&quot;xforms&quot;</span> <span class="p">)</span>
+                   <span class="s">&quot;rapidsms_xforms&quot;</span> <span class="p">)</span>
+
+<span class="n">TABS</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">(</span><span class="s">&#39;rapidsms.views.dashboard&#39;</span><span class="p">,</span> <span class="s">&#39;Dashboard&#39;</span><span class="p">),</span>
+  <span class="p">(</span><span class="s">&#39;rapidsms_xforms.views.xforms&#39;</span><span class="p">,</span> <span class="s">&#39;XForms&#39;</span><span class="p">),</span>
+  <span class="p">(</span><span class="s">&#39;rapidsms.contrib.httptester.views.generate_identity&#39;</span><span class="p">,</span> <span class="s">&#39;HttpTester&#39;</span><span class="p">),</span>
+<span class="p">]</span>
 </pre></div>
 </div>
-<p>Then sync your database with <tt class="docutils literal"><span class="pre">./manage.py</span> <span class="pre">syncdb</span></tt>.</p>
+<p>Finally sync your database with <tt class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">syncdb</span></tt>.</p>
 <p>Once you restart RapidSMS a new tab will created letting you create, manage and view forms and their submissions.</p>
 </div>
 <div class="section" id="building-the-documentation">
@@ -111,6 +124,14 @@
 <div class="highlight-python"><pre>% make html</pre>
 </div>
 <p>The final docs will be found in <tt class="docutils literal"><span class="pre">docs/_build/html/index.html</span></tt></p>
+</div>
+<div class="section" id="updating-github-docs">
+<h1>Updating Github Docs<a class="headerlink" href="#updating-github-docs" title="Permalink to this headline">¶</a></h1>
+<p>We use some modified paver scripts fromthe github-tools package to manage uploading our built docs to github:</p>
+<div class="highlight-python"><pre>% easy_install github-tools[template]
+% rm -rf docs/_build
+% paver gh_pages_build gh_pages_update -m "update github docs"</pre>
+</div>
 </div>
 <div class="section" id="running-the-tests">
 <h1>Running the Tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h1>
@@ -121,11 +142,11 @@
 <p>And edit your <tt class="docutils literal"><span class="pre">INSTALLED_APPS</span></tt> in <tt class="docutils literal"><span class="pre">settings.py</span></tt> to include django-test-extensions:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span> <span class="s">&quot;rapidsms&quot;</span><span class="p">,</span>
                    <span class="s">&quot;django-test-extensions&quot;</span><span class="p">,</span>
-                   <span class="s">&quot;xforms&quot;</span> <span class="p">)</span>
+                   <span class="s">&quot;rapidsms_xforms&quot;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>You&#8217;ll then be able to run the unit tests and get a full coverage report:</p>
-<div class="highlight-python"><pre>% ./manage.py test xforms --coverage</pre>
+<div class="highlight-python"><pre>% ./manage.py test rapidsms_xforms --coverage</pre>
 </div>
 <p>NOTE: There is currently an issue in django-test-extensions that makes all module level elements (imports and the like) show up as non-covered.  We are trying to get to the bottom of this with the author.</p>
 </div>
@@ -134,12 +155,12 @@
 <p>Once installed, click on the XForms tab.  Here you can create a new form.  A form represents a new SMS (or XForm) endpoint, allowing users enter data into the system according to the fields you have defined.  Try creating a new form, naving it <tt class="docutils literal"><span class="pre">survey</span></tt> and add one integer field named <tt class="docutils literal"><span class="pre">age</span></tt> and a string field named <tt class="docutils literal"><span class="pre">name</span></tt>.</p>
 <p>Once saved you can submit SMS messages to the system in the forms:</p>
 <div class="highlight-python"><pre>survey +age 10 +name emily
-survey + age 30   +name greg linden
+survey + age 30   +name monty python
 survey +name eric +age 15.4</pre>
 </div>
 <p>You can view submitted reports after they come in, and edit them as you like.</p>
 <p>Now try experimenting with adding restrictions to the fields, whether they are required, their min and max values etc..  You&#8217;ll find you can easily customize the error messages as they come in.</p>
-<p>You can also submit surveys using an XForms client.  From the XForm detail page, just click on the <tt class="docutils literal"><span class="pre">download</span> <span class="pre">specification</span></tt> link to get an XForm compliant view of the XForm.  By default forms will be submitted using HTTP POSTs, but if you are using our modified ODK client you will also be able to submit via SMS.</p>
+<p>You can also submit surveys using an XForms client, like ODK Collect.  The XForms application adds the appropriate endpoints to both discover available forms, download them to the device, and submit them to the server.  This makes RapidSMS a full XForms endpoint for simple forms, giving you the choice as to whether to submit via a rich XForms client or via SMS.</p>
 </div>
 <div class="section" id="contents">
 <h1>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
