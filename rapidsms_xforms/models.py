@@ -547,7 +547,7 @@ class XForm(models.Model):
             # if we already have a value for this field
             if name in value_count:
                 # add an error and remove the duplicate
-                #errors.append(ValidationError("Expected one value for %s, more than one was given." % name))
+                # errors.append(ValidationError("Expected one value for %s, more than one was given." % name))
                 if getattr(settings, 'USE_DEFAULT_VALIDATION_ERROR', True):
                     errors.append(ValidationError("Expected one value for %s, more than one was given." % name))
                 else:
@@ -565,7 +565,7 @@ class XForm(models.Model):
                 try:
                     required_const[0].validate(None, field.field_type, submission_type)
                 except ValidationError as e:
-                    #XXXMake Sean Happy
+                    # XXXMake Sean Happy
                     if getattr(settings, 'USE_DEFAULT_VALIDATION_ERROR', True):
                         errors.append(e)
                     else:
@@ -734,7 +734,7 @@ class XForm(models.Model):
             for field in self.fields.all():
                 field.save(force_update=True, using=using)
 
-    def __unicode__(self): # pragma: no cover
+    def __unicode__(self):  # pragma: no cover
         return self.name
 
 class XFormField(Attribute):
@@ -945,7 +945,7 @@ class XFormField(Attribute):
         return "%s %s" % (full, constraints)
 
 
-    def __unicode__(self): # pragma: no cover
+    def __unicode__(self):  # pragma: no cover
         return self.name
 
 CONSTRAINT_CHOICES = (
@@ -1031,7 +1031,7 @@ class XFormFieldConstraint(models.Model):
 
         return value
 
-    def __unicode__(self): # pragma: no cover
+    def __unicode__(self):  # pragma: no cover
         return "%s (%s)" % (self.type, self.test)
 
 
@@ -1086,23 +1086,24 @@ class XFormSubmission(models.Model):
         Assigns our confirmation id.  We increment our confirmation id's for each form
         for every submission.
         """
+        # This commented out section has been moved to a postgresql stored procedure
+        # called rapidsms_xforms_xformsubmission_after_update
+        #
         # everybody gets a confirmation id
-        if not self.confirmation_id:
-            try:
-                XFormSubmission.confirmation_lock.acquire()
-                last_confirmation = 0
-
-                last_submission = self.xform.submissions.all().order_by('-confirmation_id')
-                if last_submission and last_submission[0].confirmation_id:
-                    last_confirmation = last_submission[0].confirmation_id
-
-                self.confirmation_id = last_confirmation + 1
-            finally:
-                XFormSubmission.confirmation_lock.release()
-
+        # if not self.confirmation_id:
+        #    try:
+        #        XFormSubmission.confirmation_lock.acquire()
+        #        last_confirmation = 0
+        #
+        #        last_submission = self.xform.submissions.all().order_by('-confirmation_id')
+        #        if last_submission and last_submission[0].confirmation_id:
+        #            last_confirmation = last_submission[0].confirmation_id
+        #        self.confirmation_id = last_confirmation + 1
+        #    finally:
+        #        XFormSubmission.confirmation_lock.release()
         super(XFormSubmission, self).save(force_insert, force_update, using)
 
-    def __unicode__(self): # pragma: no cover
+    def __unicode__(self):  # pragma: no cover
         return "%s (%s) - %s" % (self.xform, self.type, self.raw)
 
 # This sets up XForm as an EAV-able model (its attributes will in fact be
@@ -1131,7 +1132,7 @@ class XFormSubmissionValue(Value):
         else:
             return self.value
 
-    def __unicode__(self): # pragma: no cover
+    def __unicode__(self):  # pragma: no cover
         return "%s=%s" % (self.attribute, self.value)
 
 
@@ -1156,7 +1157,7 @@ class XFormReport(models.Model):
     """
     name = models.CharField(max_length=32, help_text="Human readable name")
     frequency = models.CharField(max_length=32, help_text="How often the report is generated")
-    constraints = PickledObjectField() # [ constraint1, constraint2, ... , constraintN ]
+    constraints = PickledObjectField()  # [ constraint1, constraint2, ... , constraintN ]
     xforms = models.ManyToManyField(XForm, through='XFormList')
 
     def __unicode__(self):
@@ -1173,7 +1174,7 @@ class XFormList(models.Model):
     priority = models.IntegerField()
 
     class Meta:
-        ordering =['priority']
+        ordering = ['priority']
 
     def __unicode__(self):
         return "{0} XFormReport: {1} XForm".format(self.report, self.xform)
@@ -1279,12 +1280,12 @@ def dl_distance(s1, s2):
             else:
                 cost = 1
             d[(i, j)] = min(
-                           d[(i - 1, j)] + 1, # deletion
-                           d[(i, j - 1)] + 1, # insertion
-                           d[(i - 1, j - 1)] + cost, # substitution
+                           d[(i - 1, j)] + 1,  # deletion
+                           d[(i, j - 1)] + 1,  # insertion
+                           d[(i - 1, j - 1)] + cost,  # substitution
                           )
             if i > 1 and j > 1 and s1[i] == s2[j - 1] and s1[i - 1] == s2[j]:
-                d[(i, j)] = min (d[(i, j)], d[i - 2, j - 2] + cost) # transposition
+                d[(i, j)] = min (d[(i, j)], d[i - 2, j - 2] + cost)  # transposition
 
     return d[lenstr1 - 1, lenstr2 - 1]
 
